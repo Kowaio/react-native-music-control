@@ -226,9 +226,16 @@ public class MusicControlNotification {
         @Override
         public void onDestroy() {
             isRunning = false;
+
+            if (MusicControlModule.INSTANCE != null) {
+                MusicControlModule.INSTANCE.destroy();
+            }
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 stopForeground(true);
             }
+
+            stopSelf();
         }
     }
 }
