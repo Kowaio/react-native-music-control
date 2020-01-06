@@ -80,7 +80,7 @@ public class MusicControlNotification {
         }
     }
 
-    public Notification prepareNotification(NotificationCompat.Builder builder, boolean isPlaying) {
+    public synchronized Notification prepareNotification(NotificationCompat.Builder builder, boolean isPlaying) {
         // Add the buttons
 
 
@@ -227,15 +227,9 @@ public class MusicControlNotification {
         public void onDestroy() {
             isRunning = false;
 
-            if (MusicControlModule.INSTANCE != null) {
-                MusicControlModule.INSTANCE.destroy();
-            }
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 stopForeground(true);
             }
-
-            stopSelf();
         }
     }
 }
